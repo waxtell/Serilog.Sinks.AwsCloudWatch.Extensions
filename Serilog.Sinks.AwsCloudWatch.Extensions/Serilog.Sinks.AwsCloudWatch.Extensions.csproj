@@ -8,6 +8,7 @@
     <RepositoryUrl>https://github.com/waxtell/Serilog.Sinks.AwsCloudWatch.Extensions.git</RepositoryUrl>
     <PackageTags>Serilog AWS CloudWatch Sink</PackageTags>
     <PackageReleaseNotes>1.0.0 Initial release</PackageReleaseNotes>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
