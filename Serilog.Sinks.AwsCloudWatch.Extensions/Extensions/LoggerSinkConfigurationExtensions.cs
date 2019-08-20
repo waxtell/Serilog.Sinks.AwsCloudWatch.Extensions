@@ -4,7 +4,7 @@ using Amazon.CloudWatchLogs;
 using Serilog.Configuration;
 using Serilog.Events;
 using Serilog.Formatting;
-using Serilog.Formatting.Compact;
+using Serilog.Formatting.Json;
 using Serilog.Sinks.AwsCloudWatch;
 
 // ReSharper disable once IdentifierTypo
@@ -49,7 +49,7 @@ namespace Serilog
             {
                 if (string.IsNullOrEmpty(textFormatterFqn))
                 {
-                    return new CompactJsonFormatter();
+                    return new JsonFormatter();
                 }
 
                 var textFormatterType = Type.GetType(textFormatterFqn);
