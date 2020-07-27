@@ -6,6 +6,7 @@ using Serilog.Events;
 using Serilog.Formatting;
 using Serilog.Formatting.Json;
 using Serilog.Sinks.AwsCloudWatch;
+using Serilog.Sinks.AwsCloudWatch.Extensions.Extensions;
 
 // ReSharper disable once IdentifierTypo
 // ReSharper disable once CheckNamespace
@@ -22,8 +23,8 @@ namespace Serilog
                 string regionEndpointSystemName,
                 bool createLogGroup = true,
                 LogEventLevel restrictedToMinimumLevel = LogEventLevel.Information,
-                int batchSizeLimit = 100,
-                int queueSizeLimit = 10000,
+                int batchSizeLimit = 1,
+                int queueSizeLimit = 1,
                 byte retryAttempts = 5,
                 TimeSpan? period = null,
                 string logStreamNameProviderFqn = null,
@@ -74,7 +75,7 @@ namespace Serilog
             };
 
             var endPoint = RegionEndpoint.GetBySystemName(regionEndpointSystemName);
-            var client = new AmazonCloudWatchLogsClient(endPoint);
+            var client = CloudWatchLogsClientExtensions.ClientFactory.Invoke(endPoint);
 
             return 
                 sinkConfiguration
