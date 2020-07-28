@@ -1,6 +1,5 @@
 ﻿using System;
 using Amazon;
-using Amazon.CloudWatchLogs;
 using Serilog.Configuration;
 using Serilog.Events;
 using Serilog.Formatting;
@@ -23,8 +22,8 @@ namespace Serilog
                 string regionEndpointSystemName,
                 bool createLogGroup = true,
                 LogEventLevel restrictedToMinimumLevel = LogEventLevel.Information,
-                int batchSizeLimit = 1,
-                int queueSizeLimit = 1,
+                int batchSizeLimit = 100,
+                int queueSizeLimit = 10000,
                 byte retryAttempts = 5,
                 TimeSpan? period = null,
                 string logStreamNameProviderFqn = null,
