@@ -1,11 +1,11 @@
 ﻿using System;
 using Amazon;
-using Amazon.CloudWatchLogs;
 using Serilog.Configuration;
 using Serilog.Events;
 using Serilog.Formatting;
 using Serilog.Formatting.Json;
 using Serilog.Sinks.AwsCloudWatch;
+using Serilog.Sinks.AwsCloudWatch.Extensions.Extensions;
 
 // ReSharper disable once IdentifierTypo
 // ReSharper disable once CheckNamespace
@@ -74,7 +74,7 @@ namespace Serilog
             };
 
             var endPoint = RegionEndpoint.GetBySystemName(regionEndpointSystemName);
-            var client = new AmazonCloudWatchLogsClient(endPoint);
+            var client = CloudWatchLogsClientExtensions.ClientFactory.Invoke(endPoint);
 
             return 
                 sinkConfiguration
