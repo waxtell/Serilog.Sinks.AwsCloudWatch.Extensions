@@ -1,10 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
+using Amazon.CloudWatchLogs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using SampleApp9000.Extensions;
 using Serilog;
+using Serilog.Sinks.AwsCloudWatch.Extensions.Extensions;
 
 namespace SampleApp9000
 {
@@ -12,16 +16,32 @@ namespace SampleApp9000
     {
         public static async Task Main(string[] args)
         {
-            await
-                CreateHostBuilder(args)
-                    .RunConsoleAsync();
+            var host = CreateHostBuilder(args)
+                            .Build();
+
+            await host
+                .RunConsoleAsync<IServiceProvider>
+                (
+                    async serviceProvider =>
+                    {
+                        serviceProvider
+                            .GetService<ILogger<Program>>()
+                            .LogInformation("Hello AwsCloudWatch!");
+                        
+                        Log
+                            .CloseAndFlush();
+
+                        await 
+                            Task.CompletedTask;
+                    }
+                );
         }
 
         public static IHostBuilder CreateHostBuilder(string[] _) =>
             new HostBuilder()
                 .ConfigureAppConfiguration
                 (
-                    (hostContext, config) =>
+                    (_, config) =>
                     {
                         config
                             .SetBasePath(Directory.GetCurrentDirectory())
@@ -33,11 +53,13 @@ namespace SampleApp9000
                 (
                     (context, collection) =>
                     {
-                        collection
-                            .AddHostedService<SampleAppHostedService>();
+                        var awsOptions = context.Configuration.GetAWSOptions();
 
-                        collection
-                            .AddDefaultAWSOptions();
+                        awsOptions.Credentials = context.Configuration.GetAwsCredentials();
+                        collection.AddDefaultAWSOptions(awsOptions);
+                        collection.AddAWSService<IAmazonCloudWatchLogs>();
+
+                        CloudWatchLogsClientExtensions.ClientFactory = _ => awsOptions.CreateServiceClient<IAmazonCloudWatchLogs>();
                     }
                 )
                 .UseSerilog

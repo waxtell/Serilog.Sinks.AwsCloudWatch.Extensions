@@ -1,22 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
     <Authors>Will Axtell</Authors>
     <Description>Configuration extension for the AwsCloudWatch Serilog sink</Description>
     <PackageProjectUrl>https://github.com/waxtell/Serilog.Sinks.AwsCloudWatch.Extensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/waxtell/Serilog.Sinks.AwsCloudWatch.Extensions.git</RepositoryUrl>
     <PackageTags>Serilog AWS CloudWatch Sink</PackageTags>
-    <PackageReleaseNotes>2.1.0 Target net standrad 2.0/1
+    <PackageReleaseNotes>2.2.0 Target net standard 2.2 net 5.0.  Update to AWS 3.5.x cycle.
+2.1.0 Target net standrad 2.0/1
 2.0.0 Switched to non-compact JSON formatter
 1.0.0 Initial release</PackageReleaseNotes>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog.Sinks.AwsCloudWatch" Version="4.0.159" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Serilog.Sinks.AwsCloudWatch" Version="4.0.168" />
   </ItemGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
 
 </Project>
