@@ -7,11 +7,13 @@
     <PackageProjectUrl>https://github.com/waxtell/Serilog.Sinks.AwsCloudWatch.Extensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/waxtell/Serilog.Sinks.AwsCloudWatch.Extensions.git</RepositoryUrl>
     <PackageTags>Serilog AWS CloudWatch Sink</PackageTags>
-    <PackageReleaseNotes>2.2.0 Target net standard 2.2 net 5.0.  Update to AWS 3.5.x cycle.
+    <PackageReleaseNotes>3.0.0 Upgrade to AWSSDK3.7.x track
+2.2.0 Target net standard 2.2 net 5.0.  Update to AWS 3.5.x cycle.
 2.1.0 Target net standrad 2.0/1
 2.0.0 Switched to non-compact JSON formatter
-1.0.0 Initial release</PackageReleaseNotes>
-    <Version>2.2.0</Version>
+1.0.0 Initial release
+    </PackageReleaseNotes>
+    <Version>3.0.0</Version>
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -20,7 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Serilog.Sinks.AwsCloudWatch" Version="4.0.168" />
+    <PackageReference Include="Serilog.Sinks.AwsCloudWatch" Version="4.0.171" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
