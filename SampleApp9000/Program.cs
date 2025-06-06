@@ -28,8 +28,9 @@ namespace SampleApp9000
                             .GetService<ILogger<Program>>()
                             .LogInformation("Hello AwsCloudWatch!");
                         
-                        Log
-                            .CloseAndFlush();
+                        await 
+                            Log
+                                .CloseAndFlushAsync();
 
                         await 
                             Task.CompletedTask;
